@@ -32,5 +32,5 @@
     "product": "NODE_ENV=product webpack -p",
     "build": "rm -rf dist && webpack -p"
   },
-  "version": "1.0.1"
+  "version": "1.0.2"
 }
