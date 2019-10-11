@@ -10,7 +10,7 @@ var url = {
 
     query: function query(name, scope) {
         if (scope === 'hash') {
-            return this.queryHash(name);
+            return this.queryHash(name, scope);
         }
         var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i"),
             scope = scope || this.scope,
@@ -20,10 +20,8 @@ var url = {
         }
         return null;
     },
-    queryHash: function queryHash(name) {
-        var url = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : location[scope];
-
-        url = url + "";
+    queryHash: function queryHash(name, scope) {
+        var url = location[scope] + "";
         var regstr = "/(\\?|\\&)" + name + "=([^\\&]+)/";
         var reg = eval(regstr);
         var result = url.match(reg);

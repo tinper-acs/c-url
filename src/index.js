@@ -6,7 +6,7 @@ let url = {
     
     query : function (name , scope) {
         if(scope === 'hash'){
-            return this.queryHash(name);
+            return this.queryHash(name,scope);
         }
         var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i"),
             scope = scope || this.scope,
@@ -16,8 +16,8 @@ let url = {
         }
         return null;
     },
-    queryHash : function (name,url = location[scope]) {
-        url = url+ "";
+    queryHash : function (name,scope) {
+        let url = location[scope]+ "";
         let regstr = "/(\\?|\\&)" + name + "=([^\\&]+)/";
         let reg = eval(regstr);
         let result = url.match(reg);
