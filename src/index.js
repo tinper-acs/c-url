@@ -5,6 +5,9 @@ let url = {
     names: ['url', 'scheme', 'slash', 'host', 'port', 'path', 'query', 'hash'],
     
     query : function (name , scope) {
+        if(scope === 'hash'){
+            return this.queryHash(name);
+        }
         var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i"),
             scope = scope || this.scope,
             r = location[scope].substr(1).match(reg);
@@ -13,7 +16,15 @@ let url = {
         }
         return null;
     },
-
+    queryHash : function (name,url = location[scope]) {
+        url = url+ "";
+        let regstr = "/(\\?|\\&)" + name + "=([^\\&]+)/";
+        let reg = eval(regstr);
+        let result = url.match(reg);
+        if (result && result[2]) {
+            return result[2];
+        } 
+    },
     addParam : function (url , data) {
         if (typeof data === 'undefined') {
             return;

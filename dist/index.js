@@ -1,4 +1,4 @@
-
+'use strict';
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
@@ -9,6 +9,9 @@ var url = {
     names: ['url', 'scheme', 'slash', 'host', 'port', 'path', 'query', 'hash'],
 
     query: function query(name, scope) {
+        if (scope === 'hash') {
+            return this.queryHash(name);
+        }
         var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i"),
             scope = scope || this.scope,
             r = location[scope].substr(1).match(reg);
@@ -17,7 +20,17 @@ var url = {
         }
         return null;
     },
+    queryHash: function queryHash(name) {
+        var url = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : location[scope];
 
+        url = url + "";
+        var regstr = "/(\\?|\\&)" + name + "=([^\\&]+)/";
+        var reg = eval(regstr);
+        var result = url.match(reg);
+        if (result && result[2]) {
+            return result[2];
+        }
+    },
     addParam: function addParam(url, data) {
         if (typeof data === 'undefined') {
             return;

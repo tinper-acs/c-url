@@ -29,7 +29,8 @@
   "name": "c-url",
   "scripts": {
     "dev": "sudo webpack-dev-server",
-    "product": "NODE_ENV=product webpack -p"
+    "product": "NODE_ENV=product webpack -p",
+    "build": "rm -rf dist && webpack -p"
   },
-  "version": "1.0.0"
+  "version": "1.0.1"
 }
